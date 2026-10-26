@@ -4,17 +4,25 @@
 托盘常驻、开机自启可选，不打断游戏。
 
 - 适用：Windows 10 / 11，Squad（SquadGame-Win64-Shipping）
-- 成品：`SquadShot.exe` 单文件自包含发布版（自带 .NET 运行时，复制走就能用），见下方「下载」
+- 成品：`SquadShot.exe` 单文件自包含发布版 —— **免安装、免 .NET、免编译，一个文件复制到哪都能双击运行**，见下方「下载」
 
 ## 下载
 
-构建好的单文件版在 Releases：
+单文件版在 Releases：
 
 <https://github.com/copperbookworm/PRTSC_App_Squad/releases/latest>
 
-`SquadShot.exe` 约 48 MB，win-x64，自带 .NET 运行时，双击即用（首次运行可能被 SmartScreen 提示，
-选择“更多信息 → 仍要运行”即可 —— 这是未签名单文件 exe 的正常表现）。
+| 项目 | 说明 |
+| --- | --- |
+| 文件名 | `SquadShot.exe` |
+| 大小 | 约 48 MB（单文件，自带 .NET 运行时，不用另装任何东西） |
+| 系统 | Windows 10 / 11，64 位（x64） |
+| 安装 | 不需要。下载后放哪都行（桌面、U 盘、任意文件夹），双击运行 |
 
+第一次运行可能被 SmartScreen / 杀软拦一下 —— exe 没有代码签名，选“更多信息 → 仍要运行”即可。
+程序只在 `%APPDATA%\SquadShot\` 和 `我的图片\SquadShots\` 下写文件，不写注册表（除非你手动打开“开机自启”）。
+
+> 仓库里只放源码（16 个 `.cs` + 工程文件 + 图标 + 文档）；`bin/`、`obj/`、`publish/` 里的产物和调试文件都不进 git，成品统一以 Releases 附件发布。
 ## 快速开始
 
 1. 双击 `SquadShot.exe`，右下角托盘出现蓝圈相机图标，程序开始待命。
@@ -150,6 +158,7 @@ dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile
 - 模拟按 PrtSc → 托盘程序注册的热键触发 → 生成新文件 → 弹出缩略图提示，全链路通过。
 - PNG 与 JPG（质量 85）两种输出、设置窗口、深色标题栏、托盘菜单、图标内嵌均已实测。
 - 单文件 `SquadShot.exe` 发布版实测：托盘启动 → 注入 PrtSc → 新图片生成（1920×1080、约 115 ms）。
+- 把发布版 exe 单独复制到一个空文件夹（旁边没有任何其它文件）再运行 `--capture-now`：返回 0，产出 1920×1080 JPG（343 KB，135 ms），说明它确实不依赖安装目录或 .NET 运行时。
 
 ## 许可证
 
